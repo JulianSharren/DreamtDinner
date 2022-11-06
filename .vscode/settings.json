@@ -1,0 +1,7 @@
+{
+    "java.sources.organizeImports.starThreshold": 10,
+    "java.sources.organizeImports.staticStarThreshold": 10,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+    }
+}
