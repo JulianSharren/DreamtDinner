@@ -7,6 +7,8 @@ import java.util.function.BiConsumer;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.jsharren.dreamt_dinner.blocks.DreamPotBlock;
 import net.jsharren.dreamt_dinner.resources.item.DtDBlockItem;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -47,6 +49,15 @@ public class DtDBlockPool {
 
     public void accept(BiConsumer<Identifier, LootTable.Builder> biConsumer) {
         pool.forEach(b -> b.accept(biConsumer));
+    }
+
+    public Block[] getEntitiedBlocks(Class<? extends Block> blockClass) {
+        return (
+            pool.stream()
+            .map(b -> b.block)
+            .filter(block -> (blockClass.isInstance(block) && (block instanceof BlockEntityProvider)))
+            .toArray(Block[]::new)
+        );
     }
 
     public static DtDBlockPool createBlockPool() {
