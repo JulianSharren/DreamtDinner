@@ -25,7 +25,9 @@
       "net.jsharren.dreamt_dinner.DreamtDinnerDataGen"
     ]
   },
-  "mixins": [],
+  "mixins": [
+    "fabric.mixins.json"
+  ],
 
   "depends": {
     "fabricloader": ">=0.14.9",
