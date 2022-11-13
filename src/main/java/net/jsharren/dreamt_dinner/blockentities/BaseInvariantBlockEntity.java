@@ -16,12 +16,12 @@ public class BaseInvariantBlockEntity extends BlockEntity {
         super(type, pos, state);
     }
 
-    public void packNbt(NbtCompound nbt) {}
+    public void packNbt(NbtCompound nbt, Boolean toClient) {}
     
     public void unpackNbt(NbtCompound nbt) {}
 
     public void markChanges() {
-        if ( this.world != null ) world.markDirty(pos);
+        if ( hasWorld() ) world.markDirty(pos);
     }
 
     public void markSync() {
@@ -39,7 +39,7 @@ public class BaseInvariantBlockEntity extends BlockEntity {
 
     @Override
     protected void writeNbt(NbtCompound nbt) {
-        packNbt(nbt);
+        packNbt(nbt, false);
         super.writeNbt(nbt);
     }
 
@@ -51,7 +51,10 @@ public class BaseInvariantBlockEntity extends BlockEntity {
 
     @Override
     public NbtCompound toInitialChunkDataNbt() {
-        return createNbt();
+        NbtCompound nbt = new NbtCompound();
+        packNbt(nbt, true);
+        super.writeNbt(nbt);
+        return nbt;
     }
 
     @Override

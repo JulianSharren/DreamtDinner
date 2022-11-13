@@ -49,55 +49,57 @@ public class DreamPotBlockEntity extends BaseInvariantBlockEntity {
     private static final String TAG_SCHEDULE_DURATION = "scheduleDuration";
     private static final String TAG_SCHEDULER_PARAM = "schedulerParam";
 
+    private long clock;
     private Optional<UUID> reactantUUID;
     private Vec3d reactantPos;
     private Boolean isActive;
     private Integer elapsed;
     private Integer scheduleDuration;
     private Integer schedulerParam;
-    private long clock;
 
     public DreamPotBlockEntity(BlockPos pos, BlockState state) {
         super(RESOURCE.blockEntityPool.getType(DreamPotBlockEntity.class), pos, state);
         clock = MathUtil.initClock(pos);
         reactantUUID = Optional.empty();
         reactantPos = Vec3d.ZERO;
-        deactivate();
+        isActive = false;
+        elapsed = 0;
+        scheduleDuration = NO_REACTION;
+        schedulerParam = 0;
     }
 
     @Override
     public void markRemoved() {
-        if ( reactantUUID.isPresent() ) {
+        if ( hasWorld() && !getWorld().isClient() && reactantUUID.isPresent() ) {
             catalystMap.remove(reactantUUID.get(), this);
         }
         super.markRemoved();
     }
 
     @Override
-    public void packNbt(NbtCompound nbt) {
-        if ( reactantUUID.isPresent() ) {
+    public void packNbt(NbtCompound nbt, Boolean toClient) {
+        nbt.putBoolean(TAG_IS_ACTIVE, isActive);
+        nbt.putInt(TAG_SCHEDULE_DURATION, scheduleDuration);
+        nbt.putInt(TAG_SCHEDULER_PARAM, schedulerParam);
+        nbt.putInt(TAG_ELAPSED, elapsed);
+        if ( !toClient && reactantUUID.isPresent() ) {
             nbt.putUuid(TAG_REACTANT_UUID, reactantUUID.get());
             nbt.put(TAG_REACTANT_POS, SerializeUtil.toNbt(reactantPos));
-            nbt.putBoolean(TAG_IS_ACTIVE, isActive);
-            nbt.putInt(TAG_ELAPSED, elapsed);
-            nbt.putInt(TAG_SCHEDULE_DURATION, scheduleDuration);
-            nbt.putInt(TAG_SCHEDULER_PARAM, schedulerParam);
         }
     }
 
     @Override
     public void unpackNbt(NbtCompound nbt) {
+        isActive = nbt.getBoolean(TAG_IS_ACTIVE);
+        scheduleDuration = nbt.getInt(TAG_SCHEDULE_DURATION);
+        schedulerParam = nbt.getInt(TAG_SCHEDULER_PARAM);
+        elapsed = nbt.getInt(TAG_ELAPSED);
         if( nbt.containsUuid(TAG_REACTANT_UUID) ) {
             reactantUUID = Optional.of(nbt.getUuid(TAG_REACTANT_UUID));
             NbtList nbtReactantPos = nbt.getList(TAG_REACTANT_POS, NbtCompound.DOUBLE_TYPE);
             if ( nbtReactantPos.size() == 3 ) {
                 reactantPos = SerializeUtil.toVec3d(nbtReactantPos);
             }
-            // they all defaults to 0/false, which is acceptable
-            isActive = nbt.getBoolean(TAG_IS_ACTIVE);
-            elapsed = nbt.getInt(TAG_ELAPSED);
-            scheduleDuration = nbt.getInt(TAG_SCHEDULE_DURATION);
-            schedulerParam = nbt.getInt(TAG_SCHEDULER_PARAM);
         } else {
             reactantUUID = Optional.empty();
         }
@@ -148,6 +150,18 @@ public class DreamPotBlockEntity extends BaseInvariantBlockEntity {
                 }
             }
         }
+        if ( self.reactantUUID.isEmpty() ) {
+            if( self.isActive || self.elapsed > 0 ) {
+                self.deactivate();
+                self.markChanges();
+            }
+        } else if ( !self.isActive ) {
+            ++self.elapsed;
+            if ( self.elapsed >= INACTIVE_COOLDOWN && self.scheduleDuration > 0 ) {
+                self.activate(world);
+            }
+            self.markChanges();
+        }
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, DreamPotBlockEntity self) {
@@ -156,29 +170,17 @@ public class DreamPotBlockEntity extends BaseInvariantBlockEntity {
         if ( !world.isClient() && world instanceof ServerWorld serverWorld) {
             serverTick(serverWorld, pos, state, self);
         }
-        if ( self.reactantUUID.isEmpty() ) {
-            if( self.isActive || self.elapsed > 0 ) {
-                self.deactivate();
-                self.markChanges();
-            }
-            return;
+        
+        if ( !self.isActive ) return;
+
+        IScheduler<Integer> scheduler = new TimeOfDayScheduler(self.schedulerParam);
+        self.elapsed = scheduler.getElapsed(world);
+        if ( self.elapsed > self.scheduleDuration + SCHEDULE_OVERTIME || self.elapsed < SCHEDULE_UNDERTIME ) {
+            self.scheduleDuration = NO_REACTION;
+        } else if ( self.elapsed >= self.scheduleDuration ) {
+            self.scheduleDuration = COMPLETE_REACTION;
         }
-        if ( self.isActive ) {
-            IScheduler<Integer> scheduler = new TimeOfDayScheduler(self.schedulerParam);
-            self.elapsed = scheduler.getElapsed(world);
-            if ( self.elapsed > self.scheduleDuration + SCHEDULE_OVERTIME || self.elapsed < SCHEDULE_UNDERTIME ) {
-                self.scheduleDuration = NO_REACTION;
-            } else if ( self.elapsed >= self.scheduleDuration ) {
-                self.scheduleDuration = COMPLETE_REACTION;
-            }
-            self.markChanges();
-        } else {
-            ++self.elapsed;
-            if ( self.elapsed >= INACTIVE_COOLDOWN && self.scheduleDuration > 0 ) {
-                self.activate(world);
-            }
-            self.markChanges();
-        }
+        self.markChanges();
     }
 
     private static Boolean isValidReactant(@Nullable DreamPotBlockEntity self, BlockPos pos, BoatEntity boatEntity) {
@@ -198,13 +200,11 @@ public class DreamPotBlockEntity extends BaseInvariantBlockEntity {
         reactantUUID = Optional.of(reactant.getUuid());
         reactantPos = reactant.getPos();
         scheduleDuration = 6000;
-        markSync();
         LOGGER.info("PreActivated");
     }
 
     private final void predeactivate() {
         reactantUUID = Optional.empty();
-        markSync();
         LOGGER.info("PreDeactivated");
     }
 
@@ -213,6 +213,7 @@ public class DreamPotBlockEntity extends BaseInvariantBlockEntity {
         isActive = true;
         schedulerParam = scheduler.getParam();
         elapsed = scheduler.getElapsed(world);
+        markSync();
         LOGGER.info("Activated");
     }
 
@@ -221,6 +222,7 @@ public class DreamPotBlockEntity extends BaseInvariantBlockEntity {
         elapsed = 0;
         scheduleDuration = NO_REACTION;
         schedulerParam = 0;
+        markSync();
         LOGGER.info("Deactivated");
     }
 }
