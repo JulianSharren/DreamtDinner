@@ -15,6 +15,7 @@ import com.google.common.collect.MapMaker;
 
 import net.jsharren.dreamt_dinner.api.IScheduler;
 import net.jsharren.dreamt_dinner.impl.TimeOfDayScheduler;
+import net.jsharren.dreamt_dinner.utils.MathUtil;
 import net.jsharren.dreamt_dinner.utils.SerializeUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.vehicle.BoatEntity;
@@ -54,9 +55,11 @@ public class DreamPotBlockEntity extends BaseInvariantBlockEntity {
     private Integer elapsed;
     private Integer scheduleDuration;
     private Integer schedulerParam;
+    private long clock;
 
     public DreamPotBlockEntity(BlockPos pos, BlockState state) {
         super(RESOURCE.blockEntityPool.getType(DreamPotBlockEntity.class), pos, state);
+        clock = MathUtil.initClock(pos);
         reactantUUID = Optional.empty();
         reactantPos = Vec3d.ZERO;
         deactivate();
@@ -130,22 +133,26 @@ public class DreamPotBlockEntity extends BaseInvariantBlockEntity {
             }
         } else {
             self.isActive = false;
-            Collection<UUID> uuids = new HashSet<UUID>(catalystMap.keySet());
-            Optional<BoatEntity> reactantOptional = (
-                world.getEntitiesByClass(
-                    BoatEntity.class,
-                    Box.of(Vec3d.ofBottomCenter(pos), RANGE_H, RANGE_Y, RANGE_H), 
-                    boatEntity -> isValidReactant(null, pos, boatEntity) && !uuids.contains(boatEntity.getUuid())
-                )
-                .stream().findFirst()
-            );
-            if ( reactantOptional.isPresent() ) {
-                self.preactivate(reactantOptional.get());
+            if ( self.clock % 8 == 0 ) {
+                Collection<UUID> uuids = new HashSet<UUID>(catalystMap.keySet());
+                Optional<BoatEntity> reactantOptional = (
+                    world.getEntitiesByClass(
+                        BoatEntity.class,
+                        Box.of(Vec3d.ofBottomCenter(pos), RANGE_H, RANGE_Y, RANGE_H), 
+                        boatEntity -> isValidReactant(null, pos, boatEntity) && !uuids.contains(boatEntity.getUuid())
+                    )
+                    .stream().findFirst()
+                );
+                if ( reactantOptional.isPresent() ) {
+                    self.preactivate(reactantOptional.get());
+                }
             }
         }
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, DreamPotBlockEntity self) {
+        ++self.clock;
+
         if ( !world.isClient() && world instanceof ServerWorld serverWorld) {
             serverTick(serverWorld, pos, state, self);
         }
