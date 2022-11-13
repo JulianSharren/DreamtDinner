@@ -79,11 +79,16 @@ public class DreamPotBlockEntity extends BaseInvariantBlockEntity {
     @Override
     public void packNbt(NbtCompound nbt, Boolean toClient) {
         nbt.putBoolean(TAG_IS_ACTIVE, isActive);
+        if ( toClient && !isActive ) {
+            return;
+        }        
         nbt.putInt(TAG_SCHEDULE_DURATION, scheduleDuration);
         nbt.putInt(TAG_SCHEDULER_PARAM, schedulerParam);
         nbt.putInt(TAG_ELAPSED, elapsed);
-        if ( !toClient && reactantUUID.isPresent() ) {
-            nbt.putUuid(TAG_REACTANT_UUID, reactantUUID.get());
+        if ( reactantUUID.isPresent() ) {
+            if ( !toClient ) {
+                nbt.putUuid(TAG_REACTANT_UUID, reactantUUID.get());
+            }
             nbt.put(TAG_REACTANT_POS, SerializeUtil.toNbt(reactantPos));
         }
     }
@@ -96,12 +101,12 @@ public class DreamPotBlockEntity extends BaseInvariantBlockEntity {
         elapsed = nbt.getInt(TAG_ELAPSED);
         if( nbt.containsUuid(TAG_REACTANT_UUID) ) {
             reactantUUID = Optional.of(nbt.getUuid(TAG_REACTANT_UUID));
-            NbtList nbtReactantPos = nbt.getList(TAG_REACTANT_POS, NbtCompound.DOUBLE_TYPE);
-            if ( nbtReactantPos.size() == 3 ) {
-                reactantPos = SerializeUtil.toVec3d(nbtReactantPos);
-            }
         } else {
             reactantUUID = Optional.empty();
+        }
+        NbtList nbtReactantPos = nbt.getList(TAG_REACTANT_POS, NbtCompound.DOUBLE_TYPE);
+        if ( nbtReactantPos.size() == 3 ) {
+            reactantPos = SerializeUtil.toVec3d(nbtReactantPos);
         }
     }
 
@@ -224,5 +229,16 @@ public class DreamPotBlockEntity extends BaseInvariantBlockEntity {
         schedulerParam = 0;
         markSync();
         LOGGER.info("Deactivated");
+    }
+
+    public float getProgress() {
+        if ( isActive && scheduleDuration > 0 ) {
+            return (float)elapsed / scheduleDuration;
+        }
+        return -1.0f;
+    }
+
+    public Vec3d getTargetVec() {
+        return Vec3d.ofCenter(getPos()).relativize(reactantPos);
     }
 }

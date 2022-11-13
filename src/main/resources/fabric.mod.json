@@ -21,6 +21,9 @@
     "main": [
       "net.jsharren.dreamt_dinner.DreamtDinner"
     ],
+    "client": [
+      "net.jsharren.dreamt_dinner.DreamtDinnerClient"
+    ],
     "fabric-datagen": [
       "net.jsharren.dreamt_dinner.DreamtDinnerDataGen"
     ]
