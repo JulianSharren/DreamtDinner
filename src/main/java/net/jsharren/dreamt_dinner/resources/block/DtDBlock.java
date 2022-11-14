@@ -11,8 +11,16 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class DtDBlock {
-    public String name;
-    public Block block;
+    protected String name;
+    protected Block block;
+
+    public String getName() {
+        return name;
+    }
+
+    public Block getBlock() {
+        return block;
+    }
 
     public DtDBlock(String name, Block block) {
         this.name = name;

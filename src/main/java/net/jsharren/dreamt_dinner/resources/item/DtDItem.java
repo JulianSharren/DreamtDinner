@@ -7,8 +7,16 @@ import net.minecraft.item.Item;
 import net.minecraft.util.registry.Registry;
 
 public class DtDItem {
-    public String name;
-    public Item item;
+    protected String name;
+    protected Item item;
+
+    public String getName() {
+        return name;
+    }
+
+    public Item getItem() {
+        return item;
+    }
 
     public DtDItem(String name, Item item) {
         this.name = name;
