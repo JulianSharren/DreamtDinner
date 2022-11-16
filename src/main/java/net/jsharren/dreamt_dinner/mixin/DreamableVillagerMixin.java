@@ -3,6 +3,7 @@ package net.jsharren.dreamt_dinner.mixin;
 import org.spongepowered.asm.mixin.Mixin;
 
 import net.jsharren.dreamt_dinner.api.IDreamableEntity;
+import net.jsharren.dreamt_dinner.resources.item.DtDItemPool;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.item.Items;
@@ -18,7 +19,7 @@ public abstract class DreamableVillagerMixin implements IDreamableEntity {
     private static LootTable.Builder baseBuilder() {
         return LootTable.builder().pool(
             LootPool.builder()
-            .with(ItemEntry.builder(Items.WHEAT_SEEDS))
+            .with(ItemEntry.builder(DtDItemPool.AURA_BREAD.getItem()))
             .rolls(UniformLootNumberProvider.create(3.0f, 6.0f))
         );
     }
@@ -44,7 +45,7 @@ public abstract class DreamableVillagerMixin implements IDreamableEntity {
         if ( profession == VillagerProfession.FARMER ) {
             builder.pool(
                 LootPool.builder()
-                .with(ItemEntry.builder(Items.WHEAT))
+                .with(ItemEntry.builder(DtDItemPool.AURA_WHEAT.getItem()))
                 .rolls(ConstantLootNumberProvider.create(2.0f))
             );
         } else if ( profession == VillagerProfession.FISHERMAN ) {
