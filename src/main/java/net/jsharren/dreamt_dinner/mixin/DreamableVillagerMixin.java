@@ -14,7 +14,7 @@ import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.village.VillagerProfession;
 
 @Mixin(VillagerEntity.class)
-public class DreamableVillagerMixin implements IDreamableEntity {
+public abstract class DreamableVillagerMixin implements IDreamableEntity {
     private static LootTable.Builder baseBuilder() {
         return LootTable.builder().pool(
             LootPool.builder()

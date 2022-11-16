@@ -12,7 +12,7 @@ import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 
 @Mixin(CatEntity.class)
-public class DreamableCatMixin implements IDreamableEntity {
+public abstract class DreamableCatMixin implements IDreamableEntity {
     private static LootTable CAT_LOOT = LootTable.builder().pool(
         LootPool.builder()
         .with(ItemEntry.builder(Items.SALMON))

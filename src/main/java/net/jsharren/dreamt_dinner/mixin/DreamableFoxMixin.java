@@ -13,7 +13,7 @@ import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 
 @Mixin(FoxEntity.class)
-public class DreamableFoxMixin implements IDreamableEntity {
+public abstract class DreamableFoxMixin implements IDreamableEntity {
     private static LootTable FOX_LOOT = LootTable.builder().pool(
         LootPool.builder()
         .with(ItemEntry.builder(RESOURCE.itemPool.getItem("reve_berries")))
