@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "dreamt_dinner:item/cooked_tuna_fillet"
+  }
+}
