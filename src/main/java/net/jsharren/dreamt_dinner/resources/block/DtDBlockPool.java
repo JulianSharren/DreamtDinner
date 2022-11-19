@@ -46,7 +46,7 @@ public class DtDBlockPool {
     }
     
     public Item getBlockItem(String name) {
-        return Optional.ofNullable(itemPool.get(name)).map(i -> i.getItem()).orElse(Items.AIR);
+        return Optional.ofNullable(itemPool.get(name)).map(i -> i.asItem()).orElse(Items.AIR);
     }
     
     public void register() {

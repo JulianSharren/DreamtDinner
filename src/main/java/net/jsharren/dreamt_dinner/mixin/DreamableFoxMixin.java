@@ -15,7 +15,7 @@ import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 public abstract class DreamableFoxMixin implements IDreamableEntity {
     private static LootTable FOX_LOOT = LootTable.builder().pool(
         LootPool.builder()
-        .with(ItemEntry.builder(DtDItemPool.REVE_BERRIES.getItem()))
+        .with(ItemEntry.builder(DtDItemPool.REVE_BERRIES))
         .rolls(UniformLootNumberProvider.create(2.0f, 4.0f))
     ).build();
 

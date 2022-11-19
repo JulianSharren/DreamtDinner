@@ -15,7 +15,6 @@ public class DtDItemPool {
     public static final DtDItem AURA_WHEAT = new DtDItem("aura_wheat", new Item(new FabricItemSettings().group(ItemGroup.MATERIALS)));
     public static final DtDItem REVE_BERRIES = new DtDItem("reve_berries", new Item(new FabricItemSettings().group(ItemGroup.FOOD)));
 
-
     private Map<String, DtDItem> pool;
 
     private DtDItemPool() {
@@ -27,7 +26,7 @@ public class DtDItemPool {
     }
 
     public Item getItem(String name) {
-        return Optional.ofNullable(pool.get(name)).map(i -> i.getItem()).orElse(Items.AIR);
+        return Optional.ofNullable(pool.get(name)).map(i -> i.asItem()).orElse(Items.AIR);
     }
 
     public void register() {
