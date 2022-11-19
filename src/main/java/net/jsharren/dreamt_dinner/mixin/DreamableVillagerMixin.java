@@ -6,7 +6,6 @@ import net.jsharren.dreamt_dinner.api.IDreamableEntity;
 import net.jsharren.dreamt_dinner.resources.item.DtDItemPool;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.VillagerEntity;
-import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.entry.ItemEntry;
@@ -51,7 +50,7 @@ public abstract class DreamableVillagerMixin implements IDreamableEntity {
         } else if ( profession == VillagerProfession.FISHERMAN ) {
             builder.pool(
                 LootPool.builder()
-                .with(ItemEntry.builder(Items.SALMON))
+                .with(ItemEntry.builder(DtDItemPool.TUNA_FILLET))
                 .rolls(ConstantLootNumberProvider.create(1.0f))
             );
         }

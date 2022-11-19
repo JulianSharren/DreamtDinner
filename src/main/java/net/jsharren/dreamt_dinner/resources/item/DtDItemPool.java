@@ -13,7 +13,9 @@ import net.minecraft.item.Items;
 public class DtDItemPool {
     public static final DtDItem AURA_BREAD = new DtDItem("aura_bread", new Item(new FabricItemSettings().group(ItemGroup.FOOD)));
     public static final DtDItem AURA_WHEAT = new DtDItem("aura_wheat", new Item(new FabricItemSettings().group(ItemGroup.MATERIALS)));
+    public static final DtDItem COOKED_TUNA_FILLET = new DtDItem("tuna_fillet", new Item(new FabricItemSettings().group(ItemGroup.FOOD)));
     public static final DtDItem REVE_BERRIES = new DtDItem("reve_berries", new Item(new FabricItemSettings().group(ItemGroup.FOOD)));
+    public static final DtDItem TUNA_FILLET = new DtDItem("cooked_tuna_fillet", new Item(new FabricItemSettings().group(ItemGroup.FOOD)));
 
     private Map<String, DtDItem> pool;
 
@@ -42,7 +44,9 @@ public class DtDItemPool {
 
         itemPool.add(AURA_BREAD);
         itemPool.add(AURA_WHEAT);
+        itemPool.add(COOKED_TUNA_FILLET);
         itemPool.add(REVE_BERRIES);
+        itemPool.add(TUNA_FILLET);
 
         return itemPool;
     }
