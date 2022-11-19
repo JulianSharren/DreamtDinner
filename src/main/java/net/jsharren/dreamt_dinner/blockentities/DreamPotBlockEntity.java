@@ -13,17 +13,25 @@ import org.jetbrains.annotations.Nullable;
 
 import com.google.common.collect.MapMaker;
 
+import net.jsharren.dreamt_dinner.api.IDreamableEntity;
 import net.jsharren.dreamt_dinner.api.IScheduler;
 import net.jsharren.dreamt_dinner.impl.TimeOfDayScheduler;
 import net.jsharren.dreamt_dinner.utils.MathUtil;
 import net.jsharren.dreamt_dinner.utils.SerializeUtil;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.vehicle.BoatEntity;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -114,13 +122,16 @@ public class DreamPotBlockEntity extends BaseInvariantBlockEntity {
         if ( self.reactantUUID.isPresent() ) {
             UUID uUID = self.reactantUUID.get();
             Boolean shouldDeactivate = true;
-            if ( world.getEntity(uUID) instanceof BoatEntity boatEntity ) {
+            @Nullable IDreamableEntity dreamable = reactantFilter(world.getEntity(uUID), pos);
+
+            if ( dreamable != null ) {
                 if ( self.isActive && self.scheduleDuration == NO_REACTION ) {
                     LOGGER.warn("Invalid time advancement");
                 } else if ( self.isActive && self.scheduleDuration == COMPLETE_REACTION ) {
                     LOGGER.info("Complete Reaction");
-                    // spawn Item
-                } else if ( isValidReactant(self, pos, boatEntity) ) {
+                    dreamable.getDreamLoot().generateLoot(lootContext(world)).forEach(stack -> spawnItems(stack, world, pos));
+                } else {
+                    tryUpdatePos(self, dreamable.getEntity().getPos());
                     shouldDeactivate = false;
                 }
             }
@@ -142,16 +153,19 @@ public class DreamPotBlockEntity extends BaseInvariantBlockEntity {
             self.isActive = false;
             if ( self.clock % 8 == 0 ) {
                 Collection<UUID> uuids = new HashSet<UUID>(catalystMap.keySet());
-                Optional<BoatEntity> reactantOptional = (
+                Optional<IDreamableEntity> dreamableOptional = (
                     world.getEntitiesByClass(
-                        BoatEntity.class,
-                        Box.of(Vec3d.ofBottomCenter(pos), RANGE_H, RANGE_Y, RANGE_H), 
-                        boatEntity -> isValidReactant(null, pos, boatEntity) && !uuids.contains(boatEntity.getUuid())
+                        LivingEntity.class,
+                        Box.of(Vec3d.ofBottomCenter(pos), RANGE_H * 2, RANGE_Y * 2, RANGE_H * 2), 
+                        entity -> !uuids.contains(entity.getUuid())
                     )
-                    .stream().findFirst()
+                    .stream()
+                    .map(entity -> reactantFilter(entity, pos))
+                    .filter(dreamable -> dreamable != null)
+                    .findFirst()
                 );
-                if ( reactantOptional.isPresent() ) {
-                    self.preactivate(reactantOptional.get());
+                if ( dreamableOptional.isPresent() ) {
+                    self.preactivate(dreamableOptional.get());
                 }
             }
         }
@@ -188,23 +202,40 @@ public class DreamPotBlockEntity extends BaseInvariantBlockEntity {
         self.markChanges();
     }
 
-    private static Boolean isValidReactant(@Nullable DreamPotBlockEntity self, BlockPos pos, BoatEntity boatEntity) {
-        if( !boatEntity.isAlive() ) return false;
-        
-        Vec3d newPos = boatEntity.getPos();
-        if ( self != null && newPos.distanceTo(self.reactantPos) >= UPDATE_POS_THRESHOLD ) {
+    @Nullable
+    private static IDreamableEntity reactantFilter(Entity entity, BlockPos pos) {
+        if ( entity.isAlive() && entity instanceof IDreamableEntity dreamable && dreamable.isDreaming() ) {
+            Vec3d relPos = Vec3d.ofBottomCenter(pos).relativize(entity.getPos());
+            if( Math.abs(relPos.getY()) <= RANGE_Y && relPos.horizontalLength() <= RANGE_H ){
+                return dreamable;
+            }
+        }
+        return null;
+    }
+
+    private static void tryUpdatePos(DreamPotBlockEntity self, Vec3d newPos) {
+        if ( newPos.distanceTo(self.reactantPos) >= UPDATE_POS_THRESHOLD ) {
             self.reactantPos = newPos;
             self.markSync();
         }
-        
-        Vec3d relPos = Vec3d.ofBottomCenter(pos).relativize(newPos);
-        return Math.abs(relPos.y) <= RANGE_Y && relPos.horizontalLength() <= RANGE_H;
     }
 
-    private final void preactivate(BoatEntity reactant) {
-        reactantUUID = Optional.of(reactant.getUuid());
-        reactantPos = reactant.getPos();
-        scheduleDuration = 6000;
+    private static void spawnItems(ItemStack stack, ServerWorld world, BlockPos pos) {
+        if ( stack.isEmpty() ) return;
+
+        float dx = 0.5f + 0.2f * (world.getRandom().nextFloat() - 0.5f);
+        float dy = 0.5f + 0.2f * (world.getRandom().nextFloat() - 0.5f);
+        float dz = 0.5f + 0.2f * (world.getRandom().nextFloat() - 0.5f);
+
+        world.spawnEntity(
+            new ItemEntity(world, pos.getX() + dx, pos.getY() + dy, pos.getZ() + dz, stack)
+        );
+    }
+
+    private final void preactivate(IDreamableEntity dreamable) {
+        reactantUUID = Optional.of(dreamable.getEntity().getUuid());
+        reactantPos = dreamable.getEntity().getPos();
+        scheduleDuration = dreamable.getDreamDuration();            
         LOGGER.info("PreActivated");
     }
 
@@ -231,9 +262,13 @@ public class DreamPotBlockEntity extends BaseInvariantBlockEntity {
         LOGGER.info("Deactivated");
     }
 
+    private static LootContext lootContext(ServerWorld world) {
+        return new LootContext.Builder(world).luck(0.0f).parameter(LootContextParameters.ORIGIN, Vec3d.ZERO).build(LootContextTypes.COMMAND);
+    }
+
     public float getProgress() {
         if ( isActive && scheduleDuration > 0 ) {
-            return (float)elapsed / scheduleDuration;
+            return MathHelper.clamp((float)elapsed / scheduleDuration, 0.0f, 1.0f);
         }
         return -1.0f;
     }
