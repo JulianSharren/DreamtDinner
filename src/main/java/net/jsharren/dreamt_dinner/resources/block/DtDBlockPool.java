@@ -19,6 +19,8 @@ import net.minecraft.loot.LootTable;
 import net.minecraft.util.Identifier;
 
 public class DtDBlockPool {
+    public static final DtDPlacedBlock DREAM_POT = new DtDPlacedBlock("dream_pot", DreamPotBlock.create());
+
     private Map<String, DtDBlock> pool;
     private Map<String, DtDBlockItem> itemPool;
 
@@ -75,10 +77,7 @@ public class DtDBlockPool {
 
     public static DtDBlockPool createBlockPool() {
         DtDBlockPool blockPool = new DtDBlockPool();
-        blockPool.addPlaced(
-            new DtDPlacedBlock("dream_pot", DreamPotBlock.create()),
-            new FabricItemSettings().group(ItemGroup.MISC)
-        );
+        blockPool.addPlaced(DREAM_POT, new FabricItemSettings().group(ItemGroup.MISC));
 
         return blockPool;
     }

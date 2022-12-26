@@ -6,11 +6,13 @@ import net.jsharren.dreamt_dinner.utils.Namespace;
 import net.minecraft.block.Block;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.server.BlockLootTableGenerator;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.loot.LootTable;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-public class DtDBlock {
+public class DtDBlock implements ItemConvertible {
     protected String name;
     protected Block block;
 
@@ -20,6 +22,10 @@ public class DtDBlock {
 
     public Block getBlock() {
         return block;
+    }
+
+    public Item asItem() {
+        return block.asItem();
     }
 
     public DtDBlock(String name, Block block) {
