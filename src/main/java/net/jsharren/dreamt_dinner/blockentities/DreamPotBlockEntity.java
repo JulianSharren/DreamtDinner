@@ -126,9 +126,9 @@ public class DreamPotBlockEntity extends BaseInvariantBlockEntity {
 
             if ( dreamable != null ) {
                 if ( self.isActive && self.scheduleDuration == NO_REACTION ) {
-                    LOGGER.warn("Invalid time advancement");
+                    LOGGER.info("Invalid time advancement");
                 } else if ( self.isActive && self.scheduleDuration == COMPLETE_REACTION ) {
-                    LOGGER.info("Complete Reaction");
+                    LOGGER.debug("Complete Reaction");
                     dreamable.getDreamLoot().generateLoot(lootContext(world)).forEach(stack -> spawnItems(stack, world, pos));
                 } else {
                     tryUpdatePos(self, dreamable.getEntity().getPos());
@@ -236,12 +236,12 @@ public class DreamPotBlockEntity extends BaseInvariantBlockEntity {
         reactantUUID = Optional.of(dreamable.getEntity().getUuid());
         reactantPos = dreamable.getEntity().getPos();
         scheduleDuration = dreamable.getDreamDuration();            
-        LOGGER.info("PreActivated");
+        LOGGER.debug("PreActivated");
     }
 
     private final void predeactivate() {
         reactantUUID = Optional.empty();
-        LOGGER.info("PreDeactivated");
+        LOGGER.debug("PreDeactivated");
     }
 
     private final void activate(World world) {
@@ -250,7 +250,7 @@ public class DreamPotBlockEntity extends BaseInvariantBlockEntity {
         schedulerParam = scheduler.getParam();
         elapsed = scheduler.getElapsed(world);
         markSync();
-        LOGGER.info("Activated");
+        LOGGER.debug("Activated");
     }
 
     private final void deactivate() {
@@ -259,7 +259,7 @@ public class DreamPotBlockEntity extends BaseInvariantBlockEntity {
         scheduleDuration = NO_REACTION;
         schedulerParam = 0;
         markSync();
-        LOGGER.info("Deactivated");
+        LOGGER.debug("Deactivated");
     }
 
     private static LootContext lootContext(ServerWorld world) {
