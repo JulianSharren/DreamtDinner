@@ -1,14 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "0": {
+    "D": {
       "item": "minecraft:polished_deepslate"
+    },
+    "T": {
+      "item": "minecraft:torch"
     }
   },
   "pattern": [
-    "0 0",
-    "0 0",
-    "000"
+    "D D",
+    "DTD",
+    "DDD"
   ],
   "result": {
     "item": "dreamt_dinner:dream_pot"

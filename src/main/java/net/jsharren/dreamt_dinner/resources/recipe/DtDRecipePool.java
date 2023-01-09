@@ -29,8 +29,10 @@ public class DtDRecipePool {
 
         recipePool.add(
             DtDShapedRecipe.create(DtDBlockPool.DREAM_POT)
-            .inputCriterion('0', "has_polished_deepslate", DtDItemLike.of(Items.POLISHED_DEEPSLATE))
-            .pattern("0 0").pattern("0 0").pattern("000")
+            .input('T', DtDItemLike.of(Items.TORCH))
+            .inputCriterion('D', "has_polished_deepslate", DtDItemLike.of(Items.POLISHED_DEEPSLATE))
+            .putSlots('T', "5")
+            .putSlots('D', "1346789")
         );
 
         return recipePool;
