@@ -3,13 +3,16 @@ package net.jsharren.dreamt_dinner;
 import static net.jsharren.dreamt_dinner.DreamtDinner.RESOURCE;
 
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.util.Identifier;
@@ -19,6 +22,7 @@ public class DreamtDinnerDataGen implements DataGeneratorEntrypoint {
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
         fabricDataGenerator.addProvider(DtDModelGenerator::new);
         fabricDataGenerator.addProvider(DtDBlockLootTables::new);
+        fabricDataGenerator.addProvider(DtDRecipeGenerator::new);
     }
 
 
@@ -47,5 +51,17 @@ public class DreamtDinnerDataGen implements DataGeneratorEntrypoint {
         public void accept(BiConsumer<Identifier, LootTable.Builder> biConsumer) {
             RESOURCE.blockPool.accept(biConsumer);
         }
-    }    
+    }
+
+    private static class DtDRecipeGenerator extends FabricRecipeProvider {
+        public DtDRecipeGenerator(FabricDataGenerator dataGenerator) {
+            super(dataGenerator);
+        }
+
+        @Override
+        protected void generateRecipes(Consumer<RecipeJsonProvider> exporter) {
+            RESOURCE.recipePool.accept(exporter);
+        }
+        
+    }
 }
