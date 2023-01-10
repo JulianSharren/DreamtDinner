@@ -10,6 +10,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
+import net.jsharren.dreamt_dinner.resources.DtDDataGenResource;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
@@ -18,6 +19,8 @@ import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.util.Identifier;
 
 public class DreamtDinnerDataGen implements DataGeneratorEntrypoint {
+    public static final DtDDataGenResource DATAGEN_RESOURCE = DtDDataGenResource.createResource();
+
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
         fabricDataGenerator.addProvider(DtDModelGenerator::new);
@@ -60,7 +63,7 @@ public class DreamtDinnerDataGen implements DataGeneratorEntrypoint {
 
         @Override
         protected void generateRecipes(Consumer<RecipeJsonProvider> exporter) {
-            RESOURCE.recipePool.accept(exporter);
+            DATAGEN_RESOURCE.recipePool.accept(exporter);
         }
         
     }
