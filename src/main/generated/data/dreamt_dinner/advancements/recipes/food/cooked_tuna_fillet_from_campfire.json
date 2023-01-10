@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "dreamt_dinner:cooked_tuna_fillet_from_campfire"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_tuna_fillet": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "dreamt_dinner:tuna_fillet"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_tuna_fillet",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "dreamt_dinner:cooked_tuna_fillet_from_campfire"
+    ]
+  }
+}

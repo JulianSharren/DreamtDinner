@@ -2,9 +2,7 @@ package net.jsharren.dreamt_dinner.resources.recipe;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -16,18 +14,11 @@ import net.jsharren.dreamt_dinner.utils.Namespace;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.item.ItemConvertible;
 
-public class DtDShapedRecipe {
-    public static final char EMPTY_CHAR = ' ';
-    protected final ItemConvertible output;
-    protected final int outputCount;
-    protected final Map<Character, IngredientLike> inputs = new LinkedHashMap<Character, IngredientLike>();
+public class DtDShapedRecipe extends DtDRecipe {
     protected final StringBuilder pattern = new StringBuilder();
-    protected final Map<String, IngredientLike> criteria = new LinkedHashMap<String, IngredientLike>();
-    @Nullable protected String group;
 
     public DtDShapedRecipe(ItemConvertible output, int outputCount) {
-        this.output = output;
-        this.outputCount = outputCount;
+        super(output, outputCount);
     }
 
     static DtDShapedRecipe create(ItemConvertible output, int outputCount) {
@@ -38,21 +29,15 @@ public class DtDShapedRecipe {
         return new DtDShapedRecipe(output, 1);
     }
 
+    @Override
     public DtDShapedRecipe input(char c, IngredientLike ingredient) {
-        if (c == EMPTY_CHAR) {
-            throw new IllegalArgumentException(String.format("Symbol '%c' is reserved and cannot be defined", EMPTY_CHAR));
-        }
-        Character character = Character.valueOf(c);
-        if (this.inputs.containsKey(character)) {
-            throw new IllegalArgumentException(String.format("Symbol '%c' is already defined!", c));
-        }
-        this.inputs.put(character, ingredient);
-
+        super.input(c, ingredient);
         return this;
     }
 
+    @Override
     public DtDShapedRecipe criterion(String key, IngredientLike ingredient) {
-        this.criteria.put(key, ingredient);
+        super.criterion(key, ingredient);
         return this;
     }
 
@@ -108,12 +93,20 @@ public class DtDShapedRecipe {
         return patterns.stream().map(s -> StringUtils.rightPad(s, hMax, EMPTY_CHAR));
     }
 
+    @Override
     public DtDShapedRecipe group(@Nullable String group) {
-        this.group = group;
+        super.group(group);
         return this;
     }
 
-    public ShapedRecipeJsonBuilder build() {
+    @Override
+    public DtDShapedRecipe suffix(String suffix) {
+        this.suffix = suffix;
+        return this;
+    }
+
+    @Override
+    protected ShapedRecipeJsonBuilder toBuilder() {
         ShapedRecipeJsonBuilder builder = ShapedRecipeJsonBuilder.create(output, outputCount);
         this.inputs.forEach((character, ingredient) -> builder.input(character, ingredient.asIngredient()));
         this.computeSlots().forEach(pattern -> builder.pattern(pattern));
