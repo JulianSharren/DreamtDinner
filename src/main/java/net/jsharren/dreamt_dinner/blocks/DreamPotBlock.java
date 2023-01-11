@@ -13,6 +13,7 @@ import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
@@ -49,6 +50,11 @@ public class DreamPotBlock extends Block implements BlockEntityProvider {
         return new DreamPotBlockEntity(pos, state);
     }
 
+    @Override
+    public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
+        return false;
+    }
+    
     @Override
     public <U extends BlockEntity> BlockEntityTicker<U> getTicker(
         World world, BlockState state, BlockEntityType<U> type
