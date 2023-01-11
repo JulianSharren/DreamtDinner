@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "dreamt_dinner",
   "version": "${version}",
 
   "name": "Dreamt Dinner",
@@ -21,11 +21,16 @@
     "main": [
       "net.jsharren.dreamt_dinner.DreamtDinner"
     ],
+    "client": [
+      "net.jsharren.dreamt_dinner.DreamtDinnerClient"
+    ],
     "fabric-datagen": [
       "net.jsharren.dreamt_dinner.DreamtDinnerDataGen"
     ]
   },
-  "mixins": [],
+  "mixins": [
+    "fabric.mixins.json"
+  ],
 
   "depends": {
     "fabricloader": ">=0.14.9",
@@ -35,5 +40,12 @@
   },
   "suggests": {
     "another-mod": "*"
+  },
+  "custom": {
+    "loom:injected_interfaces": {
+      "net/minecraft/class_1451": ["net/jsharren/dreamt_dinner/api/IDreamableEntity"],
+      "net/minecraft/class_1646": ["net/jsharren/dreamt_dinner/api/IDreamableEntity"],
+      "net/minecraft/class_4019": ["net/jsharren/dreamt_dinner/api/IDreamableEntity"]
+    }
   }
 }

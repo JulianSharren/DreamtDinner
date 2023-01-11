@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": {
+    "item": "dreamt_dinner:tuna_fillet"
+  },
+  "result": "dreamt_dinner:cooked_tuna_fillet"
+}

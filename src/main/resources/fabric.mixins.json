@@ -4,9 +4,12 @@
   "package": "net.jsharren.dreamt_dinner.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "DreamableCatMixin",
+    "DreamableFoxMixin",
+    "DreamableVillagerMixin"
   ],
   "client": [
-    "ExampleMixin"
+    "client.BeaconBeamRenderer"
   ],
   "injectors": {
     "defaultRequire": 1

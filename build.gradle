@@ -17,9 +17,17 @@ repositories {
 	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
 	// for more information about repositories.
 	// maven {
-	// 	name = 'ARRP'
-	// 	url = uri('https://storage.googleapis.com/devan-maven/')
+	// 	name = 'Jitpack'
+	// 	url = uri('https://jitpack.io')
 	// }
+	// maven {
+    //     name = 'Ladysnake Mods'
+    //     url = 'https://ladysnake.jfrog.io/artifactory/mods'
+    //     content {
+    //         includeGroup 'io.github.ladysnake'
+    //         includeGroupByRegex 'io\\.github\\.onyxstudios.*'
+    //     }
+    // }
 }
 
 dependencies {
@@ -30,7 +38,9 @@ dependencies {
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-	// modImplementation "net.devtech:arrp:0.6.4"
+	
+	// include Renderer
+	// include modImplementation("com.github.0x3C50:Renderer:d2cc995ff4")
 }
 
 processResources {
