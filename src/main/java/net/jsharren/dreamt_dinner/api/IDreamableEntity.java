@@ -14,7 +14,7 @@ public interface IDreamableEntity {
     }
     
     default Integer getDreamDuration() {
-        return 9600;
+        return 1200;
     }
 
     default LootTable getDreamLoot() {

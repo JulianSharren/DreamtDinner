@@ -34,11 +34,6 @@ public abstract class DreamableFoxMixin implements IDreamableEntity {
     }
 
     @Override
-    public Integer getDreamDuration() {
-        return 1200;
-    }
-
-    @Override
     public LootTable getDreamLoot() {
         return FOX_LOOT;
     }
