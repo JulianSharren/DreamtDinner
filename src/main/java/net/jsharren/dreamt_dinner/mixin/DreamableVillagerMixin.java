@@ -18,8 +18,8 @@ public abstract class DreamableVillagerMixin implements IDreamableEntity {
     private static LootTable.Builder baseBuilder() {
         return LootTable.builder().pool(
             LootPool.builder()
-            .with(ItemEntry.builder(DtDItemPool.AURA_BREAD))
-            .rolls(UniformLootNumberProvider.create(3.0f, 6.0f))
+            .with(ItemEntry.builder(DtDItemPool.AURA_WHEAT))
+            .rolls(UniformLootNumberProvider.create(2.0f, 4.0f))
         );
     }
 
@@ -44,13 +44,13 @@ public abstract class DreamableVillagerMixin implements IDreamableEntity {
         if ( profession == VillagerProfession.FARMER ) {
             builder.pool(
                 LootPool.builder()
-                .with(ItemEntry.builder(DtDItemPool.AURA_WHEAT))
+                .with(ItemEntry.builder(DtDItemPool.AURA_BREAD))
                 .rolls(ConstantLootNumberProvider.create(2.0f))
             );
         } else if ( profession == VillagerProfession.FISHERMAN ) {
             builder.pool(
                 LootPool.builder()
-                .with(ItemEntry.builder(DtDItemPool.TUNA_FILLET))
+                .with(ItemEntry.builder(DtDItemPool.COOKED_TUNA_FILLET))
                 .rolls(ConstantLootNumberProvider.create(1.0f))
             );
         }

@@ -9,14 +9,14 @@ import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
+import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 
 @Mixin(CatEntity.class)
 public abstract class DreamableCatMixin implements IDreamableEntity {
     private static LootTable CAT_LOOT = LootTable.builder().pool(
         LootPool.builder()
         .with(ItemEntry.builder(DtDItemPool.TUNA_FILLET))
-        .rolls(ConstantLootNumberProvider.create(2.0f))
+        .rolls(UniformLootNumberProvider.create(1.0f, 2.0f))
     ).build();
 
     private CatEntity cast() {
