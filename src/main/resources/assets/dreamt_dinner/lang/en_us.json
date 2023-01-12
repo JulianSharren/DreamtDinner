@@ -1,4 +1,8 @@
 {
+    "advancements.dreamt_dinner.root.title": "DreamtDinner",
+    "advancements.dreamt_dinner.root.description": "Know the taste of dream",
+    "advancements.dreamt_dinner.villager_dream.title": "Dream Catcher",
+    "advancements.dreamt_dinner.villager_dream.description": "Snatch food material from a villager's dream",
     "item.dreamt_dinner.aura_bread": "Aura Bread",
     "item.dreamt_dinner.aura_wheat": "Aura Wheat",
     "item.dreamt_dinner.cooked_tuna_fillet": "Cooked Tuna Fillet",

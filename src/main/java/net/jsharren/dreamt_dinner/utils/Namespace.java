@@ -12,6 +12,14 @@ public class Namespace {
         return Identifier.of(MOD_ID, String.join("/", names));
     }
 
+    public static String toPath(String... names) {
+        return String.join("/", MOD_ID, String.join("/", names));
+    }
+
+    public static String toKey(String category, String... names) {
+        return String.join(".", category, MOD_ID, String.join(".", names));
+    }
+
     public static Logger getRootLogger() {
         return LoggerFactory.getLogger(MOD_ID);
     }
