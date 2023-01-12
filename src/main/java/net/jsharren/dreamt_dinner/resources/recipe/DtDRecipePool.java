@@ -25,29 +25,27 @@ public class DtDRecipePool {
         .inputCriterion("has_tuna_fillet", DtDItemLike.of(DtDItemPool.TUNA_FILLET))
     );
 
-    private List<DtDRecipe> pool;
+    private final List<DtDRecipe> recipes = new ArrayList<DtDRecipe>();;
 
-    private DtDRecipePool() {
-        pool = new ArrayList<DtDRecipe>();
-    }
+    private DtDRecipePool() {}
     
-    public void add(DtDRecipe builder) {
-        pool.add(builder);
+    public void add(DtDRecipe recipe) {
+        recipes.add(recipe);
     }
 
     public void accept(Consumer<RecipeJsonProvider> exporter) {
-        pool.forEach(recipe -> recipe.offerTo(exporter));
+        recipes.forEach(recipe -> recipe.offerTo(exporter));
     }
 
     public static DtDRecipePool createRecipePool() {
-        DtDRecipePool recipePool = new DtDRecipePool();
+        DtDRecipePool pool = new DtDRecipePool();
 
-        recipePool.add(DREAM_POT);
-        recipePool.add(AURA_BREAD);
-        recipePool.add(COOKED_TUNA_FILLET);
-        recipePool.add(COOKED_TUNA_FILLET.toSmoking());
-        recipePool.add(COOKED_TUNA_FILLET.toCampBaking());
+        pool.add(DREAM_POT);
+        pool.add(AURA_BREAD);
+        pool.add(COOKED_TUNA_FILLET);
+        pool.add(COOKED_TUNA_FILLET.toSmoking());
+        pool.add(COOKED_TUNA_FILLET.toCampBaking());
 
-        return recipePool;
+        return pool;
     }
 }
