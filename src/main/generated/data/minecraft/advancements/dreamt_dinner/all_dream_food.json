@@ -1,0 +1,88 @@
+{
+  "parent": "minecraft:dreamt_dinner/one_dream_food",
+  "criteria": {
+    "pick_up_aura_wheat": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:villager"
+            }
+          }
+        ],
+        "item": {
+          "items": [
+            "dreamt_dinner:aura_wheat"
+          ]
+        }
+      },
+      "trigger": "minecraft:thrown_item_picked_up_by_player"
+    },
+    "pick_up_reve_berries": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:fox"
+            }
+          }
+        ],
+        "item": {
+          "items": [
+            "dreamt_dinner:reve_berries"
+          ]
+        }
+      },
+      "trigger": "minecraft:thrown_item_picked_up_by_player"
+    },
+    "pick_up_tuna_fillet": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:cat"
+            }
+          }
+        ],
+        "item": {
+          "items": [
+            "dreamt_dinner:tuna_fillet"
+          ]
+        }
+      },
+      "trigger": "minecraft:thrown_item_picked_up_by_player"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.dreamt_dinner.all_dream_food.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "dreamt_dinner:aura_bread"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.dreamt_dinner.all_dream_food.title"
+    }
+  },
+  "requirements": [
+    [
+      "pick_up_aura_wheat"
+    ],
+    [
+      "pick_up_reve_berries"
+    ],
+    [
+      "pick_up_tuna_fillet"
+    ]
+  ]
+}

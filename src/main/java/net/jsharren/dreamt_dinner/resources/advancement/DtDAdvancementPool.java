@@ -8,8 +8,14 @@ import net.jsharren.dreamt_dinner.resources.block.DtDBlockPool;
 import net.jsharren.dreamt_dinner.resources.item.DtDItemPool;
 import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementFrame;
-import net.minecraft.advancement.criterion.InventoryChangedCriterion;
+import net.minecraft.advancement.CriterionMerger;
+import net.minecraft.advancement.criterion.CriterionConditions;
+import net.minecraft.advancement.criterion.ThrownItemPickedUpByEntityCriterion;
 import net.minecraft.advancement.criterion.TickCriterion;
+import net.minecraft.entity.EntityType;
+import net.minecraft.item.ItemConvertible;
+import net.minecraft.predicate.entity.EntityPredicate;
+import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.util.Identifier;
 
 public class DtDAdvancementPool {
@@ -34,15 +40,41 @@ public class DtDAdvancementPool {
             Advancement.Builder.create().criterion("slept_in_bed", TickCriterion.Conditions.createSleptInBed())
         ).display(DtDBlockPool.DREAM_POT, AdvancementFrame.TASK);
         
-        DtDAdvancement villagerAdvancement = rootAdvancement.createChild(
-            "villager_dream",
-            Advancement.Builder.create().criterion(
-                "get_aura_wheat_from_dream_pot", InventoryChangedCriterion.Conditions.items(DtDItemPool.AURA_WHEAT)
-            )
+        DtDAdvancement oneDreamFoodAdvancement = rootAdvancement.createChild(
+            "one_dream_food",
+            ConditionUtil.createDreamPotCriteriaBuilder().criteriaMerger(CriterionMerger.OR)
         ).display(DtDItemPool.AURA_WHEAT, AdvancementFrame.TASK);
-        pool.add(rootAdvancement);
-        pool.add(villagerAdvancement);
 
+        DtDAdvancement allDreamFoodAdvancement = oneDreamFoodAdvancement.createChild(
+            "all_dream_food",
+            ConditionUtil.createDreamPotCriteriaBuilder().criteriaMerger(CriterionMerger.AND)
+        ).display(DtDItemPool.AURA_BREAD, AdvancementFrame.CHALLENGE);
+
+        pool.add(rootAdvancement);
+        pool.add(oneDreamFoodAdvancement);
+        pool.add(allDreamFoodAdvancement);
+        
         return pool;
     }
+
+    public static class ConditionUtil {
+        private static CriterionConditions createThrownItemCondition(ItemConvertible item, EntityType<?> entityType) {
+            return ThrownItemPickedUpByEntityCriterion.Conditions.createThrownItemPickedUpByPlayer(
+                EntityPredicate.Extended.EMPTY,
+                ItemPredicate.Builder.create().items(item).build(), 
+                EntityPredicate.Extended.ofLegacy(EntityPredicate.Builder.create().type(entityType).build())
+            );
+        }
+
+        public static Advancement.Builder createDreamPotCriteriaBuilder() {
+            return (
+                Advancement.Builder.create()
+                .criterion("pick_up_aura_wheat", createThrownItemCondition(DtDItemPool.AURA_WHEAT, EntityType.VILLAGER))
+                .criterion("pick_up_reve_berries", createThrownItemCondition(DtDItemPool.REVE_BERRIES, EntityType.FOX))
+                .criterion("pick_up_tuna_fillet", createThrownItemCondition(DtDItemPool.TUNA_FILLET, EntityType.CAT))
+            );
+        }
+    }
+
+    
 }

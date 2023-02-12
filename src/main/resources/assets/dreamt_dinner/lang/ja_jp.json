@@ -1,7 +1,9 @@
 {
     "advancements.dreamt_dinner.root.description": "夢の味を知る",
-    "advancements.dreamt_dinner.villager_dream.title": "ドリームキャッチャー",
-    "advancements.dreamt_dinner.villager_dream.description": "村人の夢の中から食材をかすめ取る",
+    "advancements.dreamt_dinner.one_dream_food.title": "ドリームキャッチャー",
+    "advancements.dreamt_dinner.one_dream_food.description": "モブの夢の中から食材を持ち出す",
+    "advancements.dreamt_dinner.all_dream_food.title": "夢泥棒",
+    "advancements.dreamt_dinner.all_dream_food.description": "睡眠可能な全てのモブから夢の食材をかすめ取る",
     "item.dreamt_dinner.aura_bread": "オーラ麦のパン",
     "item.dreamt_dinner.aura_wheat": "オーラ麦",
     "item.dreamt_dinner.cooked_tuna_fillet": "焼いたマグロの切り身",
