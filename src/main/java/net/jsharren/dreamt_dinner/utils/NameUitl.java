@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import net.minecraft.util.Identifier;
 
-public class Namespace {
+public class NameUitl {
     public static final String MOD_ID = "dreamt_dinner";
 
     public static Identifier toID(String... names) {

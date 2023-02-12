@@ -2,7 +2,7 @@ package net.jsharren.dreamt_dinner.resources.block;
 
 import java.util.function.BiConsumer;
 
-import net.jsharren.dreamt_dinner.utils.Namespace;
+import net.jsharren.dreamt_dinner.utils.NameUitl;
 import net.minecraft.block.Block;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.server.BlockLootTableGenerator;
@@ -34,7 +34,7 @@ public class DtDBlock implements ItemConvertible {
     }
 
     public void register() {
-        Registry.register(Registry.BLOCK, Namespace.toID(name), block);
+        Registry.register(Registry.BLOCK, NameUitl.toID(name), block);
     }
 
     public void datagen(BlockStateModelGenerator gen) {
@@ -46,6 +46,6 @@ public class DtDBlock implements ItemConvertible {
     }
 
     public void accept(BiConsumer<Identifier, LootTable.Builder> biConsumer) {
-        biConsumer.accept(Namespace.toID("blocks", name), getLootTable());
+        biConsumer.accept(NameUitl.toID("blocks", name), getLootTable());
     }
 }
