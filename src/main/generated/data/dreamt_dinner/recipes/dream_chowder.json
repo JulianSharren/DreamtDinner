@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "dreamt_dinner:aura_bread"
+    },
+    "B": {
+      "item": "minecraft:bowl"
+    },
+    "S": [
+      {
+        "item": "minecraft:red_mushroom"
+      },
+      {
+        "item": "minecraft:brown_mushroom"
+      }
+    ],
+    "T": {
+      "item": "dreamt_dinner:cooked_tuna_fillet"
+    }
+  },
+  "pattern": [
+    "STA",
+    " B "
+  ],
+  "result": {
+    "item": "dreamt_dinner:dream_chowder"
+  }
+}

@@ -24,6 +24,14 @@ public class DtDRecipePool {
         DtDCookingRecipe.create(DtDItemPool.COOKED_TUNA_FILLET)
         .inputCriterion("has_tuna_fillet", DtDItemLike.of(DtDItemPool.TUNA_FILLET))
     );
+    private static final DtDShapedRecipe DREAM_CHOWDER = (
+        DtDShapedRecipe.create(DtDItemPool.DREAM_CHOWDER)
+        .input('B', DtDItemLike.of(Items.BOWL)).putSlots('B', "5")
+        .input('S', DtDItemLike.of(Items.RED_MUSHROOM, Items.BROWN_MUSHROOM)).putSlots('S', "1")
+        .input('T', DtDItemLike.of(DtDItemPool.COOKED_TUNA_FILLET)).putSlots('T', "2")
+        .input('A', DtDItemLike.of(DtDItemPool.AURA_BREAD)).putSlots('A', "3")
+        .criterion("has_cooked_tuna_fillet", DtDItemLike.of(DtDItemPool.COOKED_TUNA_FILLET))
+    );
 
     private final List<DtDRecipe> recipes = new ArrayList<DtDRecipe>();;
 
@@ -45,6 +53,7 @@ public class DtDRecipePool {
         pool.add(COOKED_TUNA_FILLET);
         pool.add(COOKED_TUNA_FILLET.toSmoking());
         pool.add(COOKED_TUNA_FILLET.toCampBaking());
+        pool.add(DREAM_CHOWDER);
 
         return pool;
     }
