@@ -1,7 +1,16 @@
 {
   "variants": {
-    "": {
+    "pieces=1": {
       "model": "dreamt_dinner:block/reve_cake"
+    },
+    "pieces=2": {
+      "model": "dreamt_dinner:block/reve_cake_2"
+    },
+    "pieces=3": {
+      "model": "dreamt_dinner:block/reve_cake_3"
+    },
+    "pieces=4": {
+      "model": "dreamt_dinner:block/reve_cake_4"
     }
   }
 }

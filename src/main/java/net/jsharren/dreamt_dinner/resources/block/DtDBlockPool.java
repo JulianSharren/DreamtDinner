@@ -21,7 +21,7 @@ import net.minecraft.util.Identifier;
 
 public class DtDBlockPool {
     public static final DtDPlacedBlock DREAM_POT = new DtDPlacedBlock("dream_pot", DreamPotBlock.create());
-    public static final DtDPlacedBlock REVE_CAKE = new DtDPlacedBlock("reve_cake", ReveCakeBlock.create());
+    public static final DtDPlacedBlock REVE_CAKE = new ReveCakeBlock.ResourceBlock();
 
     private Map<String, DtDBlock> pool;
     private Map<String, DtDBlockItem> itemPool;

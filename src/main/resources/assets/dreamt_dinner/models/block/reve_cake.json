@@ -1,5 +1,9 @@
 {
     "parent": "block/block",
+    "display": {
+        "gui": {"scale": [1.334, 1.334, 1.334], "translation": [0, 4, 0], "rotation": [45, 45, 0]},
+        "fixed": {"scale": [1.5, 1.5, 1.5], "translation": [0, 8, 0]}
+    },
     "textures": {
         "a": "dreamt_dinner:block/reve_cake",
         "particle": "block/cake_inner"

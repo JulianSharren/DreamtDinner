@@ -1,0 +1,69 @@
+{
+    "parent": "block/block",
+    "textures": {
+        "a": "dreamt_dinner:block/reve_cake",
+        "particle": "block/cake_inner"
+    },
+    "elements": [
+        {
+            "from": [1, 0, 3],
+            "to": [7, 4, 9],
+            "faces": {
+                "down": { "texture": "#a", "uv": [0, 0, 6, 6], "cullface": "down"},
+                "north": { "texture": "#a", "uv": [6, 2, 12, 6]},
+                "south": { "texture": "#a", "uv": [6, 2, 12, 6]},
+                "east": { "texture": "#a", "uv": [6, 2, 12, 6]},
+                "west": { "texture": "#a", "uv": [6, 2, 12, 6]}
+            }
+        },
+        {
+            "from": [1, 4, 3],
+            "to": [7, 6, 9],
+            "faces": {
+                "up": { "texture": "#a", "uv": [0, 8, 6, 14], "tintindex": 0},
+                "north": { "texture": "#a", "uv": [6, 8, 12, 10], "tintindex": 0},
+                "south": { "texture": "#a", "uv": [6, 8, 12, 10], "tintindex": 0},
+                "east": { "texture": "#a", "uv": [6, 8, 12, 10], "tintindex": 0},
+                "west": { "texture": "#a", "uv": [6, 8, 12, 10], "tintindex": 0}
+            }
+        },
+        {
+            "from": [3, 6, 5],
+            "to": [5, 6.1, 7],
+            "faces": {
+                "up": { "texture": "#a", "uv": [12, 8, 14, 10]}
+            }
+        },
+        {
+            "from": [9, 0, 7],
+            "to": [15, 4, 13],
+            "faces": {
+                "down": { "texture": "#a", "uv": [0, 0, 6, 6], "cullface": "down"},
+                "north": { "texture": "#a", "uv": [6, 2, 12, 6]},
+                "south": { "texture": "#a", "uv": [6, 2, 12, 6]},
+                "east": { "texture": "#a", "uv": [6, 2, 12, 6]},
+                "west": { "texture": "#a", "uv": [6, 2, 12, 6]}
+            }
+        },
+        {
+            "from": [9, 4, 7],
+            "to": [15, 6, 13],
+            "faces": {
+                "up": { "texture": "#a", "uv": [0, 8, 6, 14], "tintindex": 1},
+                "north": { "texture": "#a", "uv": [6, 8, 12, 10], "tintindex": 1},
+                "south": { "texture": "#a", "uv": [6, 8, 12, 10], "tintindex": 1},
+                "east": { "texture": "#a", "uv": [6, 8, 12, 10], "tintindex": 1},
+                "west": { "texture": "#a", "uv": [6, 8, 12, 10], "tintindex": 1}
+            }
+        },
+        {
+            "from": [11, 6, 9],
+            "to": [13, 6.1, 11],
+            "faces": {
+                "up": { "texture": "#a", "uv": [12, 8, 14, 10]}
+            }
+        }
+    ]
+
+
+}
