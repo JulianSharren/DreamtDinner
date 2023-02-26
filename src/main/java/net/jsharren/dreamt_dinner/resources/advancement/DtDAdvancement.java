@@ -5,7 +5,7 @@ import java.util.function.Consumer;
 
 import org.jetbrains.annotations.Nullable;
 
-import net.jsharren.dreamt_dinner.utils.NameUitl;
+import net.jsharren.dreamt_dinner.utils.NameUtil;
 import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.Advancement.Builder;
 import net.minecraft.advancement.AdvancementFrame;
@@ -32,8 +32,8 @@ public class DtDAdvancement {
         bgOptional = Optional.ofNullable(background);
         parentOptional = Optional.ofNullable(parent);
         advOptional = Optional.empty();
-        titleText = Text.translatable(NameUitl.toKey("advancements", name, "title"));
-        descriptionText = Text.translatable(NameUitl.toKey("advancements", name, "description"));
+        titleText = Text.translatable(NameUtil.toKey("advancements", name, "title"));
+        descriptionText = Text.translatable(NameUtil.toKey("advancements", name, "description"));
         showToast = parent != null;
         annouceToChat = parent != null;
         hidden = false;
@@ -48,12 +48,12 @@ public class DtDAdvancement {
     }
 
     public DtDAdvancement titleArgs(Object... args) {
-        titleText = Text.translatable(NameUitl.toKey("advancements", name, "title"), args);
+        titleText = Text.translatable(NameUtil.toKey("advancements", name, "title"), args);
         return this;
     }
 
     public DtDAdvancement descriptionArgs(Object... args) {
-        descriptionText = Text.translatable(NameUitl.toKey("advancements", name, "description"), args);
+        descriptionText = Text.translatable(NameUtil.toKey("advancements", name, "description"), args);
         return this;
     }
 
@@ -83,6 +83,6 @@ public class DtDAdvancement {
             }
             builder.parent(parent.advOptional.get());
         }
-        advOptional = Optional.of(builder.build(exporter, NameUitl.toPath(name)));
+        advOptional = Optional.of(builder.build(exporter, NameUtil.toPath(name)));
     }
 }

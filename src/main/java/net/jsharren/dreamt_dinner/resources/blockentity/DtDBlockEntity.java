@@ -3,7 +3,7 @@ package net.jsharren.dreamt_dinner.resources.blockentity;
 import org.jetbrains.annotations.Nullable;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
-import net.jsharren.dreamt_dinner.utils.NameUitl;
+import net.jsharren.dreamt_dinner.utils.NameUtil;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
@@ -42,7 +42,7 @@ public class DtDBlockEntity <T extends BlockEntity> {
     }
 
     public void register() {
-        Registry.register(Registry.BLOCK_ENTITY_TYPE, NameUitl.toID(name), bet);
+        Registry.register(Registry.BLOCK_ENTITY_TYPE, NameUtil.toID(name), bet);
     }
 
     // @SuppressWarnings("unchecked")
