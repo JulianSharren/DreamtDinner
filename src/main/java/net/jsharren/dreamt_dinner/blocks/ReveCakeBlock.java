@@ -1,5 +1,6 @@
 package net.jsharren.dreamt_dinner.blocks;
 
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -11,15 +12,17 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
 import net.minecraft.block.ShapeContext;
+import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.BlockStateVariant;
 import net.minecraft.data.client.BlockStateVariantMap;
 import net.minecraft.data.client.VariantSettings;
 import net.minecraft.data.client.VariantsBlockStateSupplier;
 import net.minecraft.data.server.BlockLootTableGenerator;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.condition.BlockStatePropertyLootCondition;
@@ -29,7 +32,6 @@ import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.predicate.StatePredicate;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager.Builder;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.ActionResult;
@@ -42,7 +44,6 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
-import net.minecraft.world.event.GameEvent;
 
 
 public class ReveCakeBlock extends Block {
@@ -82,7 +83,7 @@ public class ReveCakeBlock extends Block {
         if (direction == Direction.DOWN && !state.canPlaceAt(world, pos)) {
             return Blocks.AIR.getDefaultState();
         }
-        return state;
+        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
     }
 
     @Override
@@ -90,32 +91,63 @@ public class ReveCakeBlock extends Block {
         return world.getBlockState(pos.down()).isSideSolidFullSquare(world, pos.down(), Direction.UP);
     }
 
+    
+
+    @Override
+    public BlockState getPlacementState(ItemPlacementContext ctx) {
+        BlockState state = ctx.getWorld().getBlockState(ctx.getBlockPos());
+        if (state.isOf(this)) {
+            return (BlockState)state.cycle(PIECES);
+        }
+        return getDefaultState();
+    }
+
+    @Override
+    public boolean canReplace(BlockState state, ItemPlacementContext context) {
+        if (!context.shouldCancelInteraction() && context.getStack().getItem() == this.asItem() && state.get(PIECES) < 4) {
+            return true;
+        }
+        return super.canReplace(state, context);
+    }
+
+    protected static boolean readyToEat(PlayerEntity player) {
+        return (
+            Optional.ofNullable(player.getStatusEffect(StatusEffects.SATURATION))
+            .map(instance -> instance.getAmplifier())
+            .orElse(-1) < 0
+        );
+    }
+
+    protected static void eat(PlayerEntity player, World world, BlockPos pos) {
+        player.addStatusEffect(new StatusEffectInstance(StatusEffects.SATURATION, 4));
+        world.playSound(player, pos, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 1.0f, 1.0f);
+
+    }
+
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        int pieces = state.get(PIECES);
-        ItemStack itemStack = player.getStackInHand(hand);
-        Item item = itemStack.getItem();
-        if (Block.getBlockFromItem(item) instanceof ReveCakeBlock) {
-            if (pieces >= 4) {
-                return ActionResult.PASS;
-            }
-            if (!player.isCreative()) {
-                itemStack.decrement(1);
-            }
-            world.playSound(null, pos, SoundEvents.BLOCK_WOOL_PLACE, SoundCategory.BLOCKS, 1.0f, 1.0f);
-            world.setBlockState(pos, state.with(PIECES, pieces + 1));
-            world.emitGameEvent(player, GameEvent.BLOCK_CHANGE, pos);
-            player.incrementStat(Stats.USED.getOrCreateStat(item));
-            return ActionResult.SUCCESS;
+        if (player.getStackInHand(hand).getItem() == this.asItem() ) {
+            return ActionResult.PASS;
         }
-        // Eat()
-        world.playSound(player, pos, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 1.0f, 1.0f);
+        if (!readyToEat(player)) {
+            return ActionResult.CONSUME;
+        }
+        eat(player, world, pos);
+
+        int pieces = state.get(PIECES);
+    
         if (pieces <= 1) {
             world.removeBlock(pos, false);
         } else {
             world.setBlockState(pos, state.with(PIECES, pieces - 1));
         }
+
         return ActionResult.SUCCESS;
+    }
+
+    @Override
+    public PistonBehavior getPistonBehavior(BlockState state) {
+        return PistonBehavior.DESTROY;
     }
 
     public static class ResourceBlock extends DtDPlacedBlock {
