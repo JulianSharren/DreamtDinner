@@ -4,7 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.jsharren.dreamt_dinner.blockentities.DreamPotBlockEntity;
 import net.jsharren.dreamt_dinner.mixin.client.BeaconBeamRenderer;
-import net.jsharren.dreamt_dinner.utils.Namespace;
+import net.jsharren.dreamt_dinner.utils.NameUitl;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
@@ -17,7 +17,7 @@ import net.minecraft.util.math.Vec3f;
 
 @Environment(EnvType.CLIENT)
 public class DreamPotBlockEntityRenderer implements BlockEntityRenderer<DreamPotBlockEntity> {
-    public static final Identifier BEAM_TEXTURE = Namespace.toID("textures", "entity", "dream_pot_beam.png");
+    public static final Identifier BEAM_TEXTURE = NameUitl.toID("textures", "entity", "dream_pot_beam.png");
     public static final float BEAM_RADIUS = 0.06f;
     public static final float BEAM_RADIAL_VELOCITY = 0.07f;
     public static final float BEAM_PHASE_VELOCITY = 0.09f;

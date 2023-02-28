@@ -1,0 +1,29 @@
+{
+  "criteria": {
+    "slept_in_bed": {
+      "conditions": {},
+      "trigger": "minecraft:slept_in_bed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "minecraft:textures/gui/advancements/backgrounds/husbandry.png",
+    "description": {
+      "translate": "advancements.dreamt_dinner.root.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "dreamt_dinner:dream_pot"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.dreamt_dinner.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "slept_in_bed"
+    ]
+  ]
+}

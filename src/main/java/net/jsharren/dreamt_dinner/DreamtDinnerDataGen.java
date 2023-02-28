@@ -7,10 +7,12 @@ import java.util.function.Consumer;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.jsharren.dreamt_dinner.resources.DtDDataGenResource;
+import net.minecraft.advancement.Advancement;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
@@ -26,6 +28,7 @@ public class DreamtDinnerDataGen implements DataGeneratorEntrypoint {
         fabricDataGenerator.addProvider(DtDModelGenerator::new);
         fabricDataGenerator.addProvider(DtDBlockLootTables::new);
         fabricDataGenerator.addProvider(DtDRecipeGenerator::new);
+        fabricDataGenerator.addProvider(DtDAdvancements::new);
     }
 
 
@@ -65,6 +68,16 @@ public class DreamtDinnerDataGen implements DataGeneratorEntrypoint {
         protected void generateRecipes(Consumer<RecipeJsonProvider> exporter) {
             DATAGEN_RESOURCE.recipePool.accept(exporter);
         }
-        
+    }
+
+    private static class DtDAdvancements extends FabricAdvancementProvider {
+        public DtDAdvancements(FabricDataGenerator dataGenerator) {
+            super(dataGenerator);
+        }
+
+        @Override
+        public void generateAdvancement(Consumer<Advancement> exporter) {
+            DATAGEN_RESOURCE.advancementPool.accept(exporter);
+        }
     }
 }

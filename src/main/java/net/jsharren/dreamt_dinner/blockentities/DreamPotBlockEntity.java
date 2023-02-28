@@ -129,7 +129,8 @@ public class DreamPotBlockEntity extends BaseInvariantBlockEntity {
                     LOGGER.info("Invalid time advancement");
                 } else if ( self.isActive && self.scheduleDuration == COMPLETE_REACTION ) {
                     LOGGER.debug("Complete Reaction");
-                    dreamable.getDreamLoot().generateLoot(lootContext(world)).forEach(stack -> spawnItems(stack, world, pos));
+                    dreamable.getDreamLoot().generateLoot(lootContext(world)).forEach(stack -> self.spawnItems(stack, world));
+                    // world.playSound(null, pos, SoundEvents.BLOCK_DISPENSER_DISPENSE, SoundCategory.BLOCKS, 1.0f, 0.5f);
                 } else {
                     tryUpdatePos(self, dreamable.getEntity().getPos());
                     shouldDeactivate = false;
@@ -220,16 +221,17 @@ public class DreamPotBlockEntity extends BaseInvariantBlockEntity {
         }
     }
 
-    private static void spawnItems(ItemStack stack, ServerWorld world, BlockPos pos) {
+    private void spawnItems(ItemStack stack, ServerWorld world) {
         if ( stack.isEmpty() ) return;
 
-        float dx = 0.5f + 0.2f * (world.getRandom().nextFloat() - 0.5f);
-        float dy = 0.5f + 0.2f * (world.getRandom().nextFloat() - 0.5f);
-        float dz = 0.5f + 0.2f * (world.getRandom().nextFloat() - 0.5f);
+        BlockPos pos = this.getPos();
+        float x = pos.getX() + 0.5f + 0.2f * (world.getRandom().nextFloat() - 0.5f);
+        float y = pos.getY() + 0.5f + 0.2f * (world.getRandom().nextFloat() - 0.5f);
+        float z = pos.getZ() + 0.5f + 0.2f * (world.getRandom().nextFloat() - 0.5f);
+        ItemEntity entity = new ItemEntity(world, x, y, z, stack);
 
-        world.spawnEntity(
-            new ItemEntity(world, pos.getX() + dx, pos.getY() + dy, pos.getZ() + dz, stack)
-        );
+        entity.setThrower(this.reactantUUID.orElse(null));
+        world.spawnEntity(entity);
     }
 
     private final void preactivate(IDreamableEntity dreamable) {
