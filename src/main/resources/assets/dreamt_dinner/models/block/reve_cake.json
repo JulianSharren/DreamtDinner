@@ -1,0 +1,44 @@
+{
+    "parent": "block/block",
+    "display": {
+        "gui": {"scale": [1.334, 1.334, 1.334], "translation": [0, 4, 0], "rotation": [45, 45, 0]},
+        "fixed": {"scale": [1.5, 1.5, 1.5], "translation": [0, 8, 0]}
+    },
+    "textures": {
+        "a": "dreamt_dinner:block/reve_cake",
+        "particle": "block/cake_inner"
+    },
+    "elements": [
+        {
+            "from": [5, 0, 5],
+            "to": [11, 4, 11],
+            "faces": {
+                "down": { "texture": "#a", "uv": [0, 0, 6, 6], "cullface": "down"},
+                "north": { "texture": "#a", "uv": [6, 2, 12, 6]},
+                "south": { "texture": "#a", "uv": [6, 2, 12, 6]},
+                "east": { "texture": "#a", "uv": [6, 2, 12, 6]},
+                "west": { "texture": "#a", "uv": [6, 2, 12, 6]}
+            }
+        },
+        {
+            "from": [5, 4, 5],
+            "to": [11, 6, 11],
+            "faces": {
+                "up": { "texture": "#a", "uv": [0, 8, 6, 14], "tintindex": 0},
+                "north": { "texture": "#a", "uv": [6, 8, 12, 10], "tintindex": 0},
+                "south": { "texture": "#a", "uv": [6, 8, 12, 10], "tintindex": 0},
+                "east": { "texture": "#a", "uv": [6, 8, 12, 10], "tintindex": 0},
+                "west": { "texture": "#a", "uv": [6, 8, 12, 10], "tintindex": 0}
+            }
+        },
+        {
+            "from": [7, 6, 7],
+            "to": [9, 6.1, 9],
+            "faces": {
+                "up": { "texture": "#a", "uv": [12, 8, 14, 10]}
+            }
+        }
+    ]
+
+
+}

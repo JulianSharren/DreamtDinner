@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "dreamt_dinner:aura_wheat"
+    },
+    "B": {
+      "item": "dreamt_dinner:reve_berries"
+    },
+    "E": {
+      "item": "minecraft:egg"
+    },
+    "S": {
+      "item": "minecraft:sugar"
+    }
+  },
+  "pattern": [
+    "BS",
+    "AE"
+  ],
+  "result": {
+    "item": "dreamt_dinner:reve_cake"
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "type": "minecraft:block",
+  "functions": [
+    {
+      "function": "minecraft:explosion_decay"
+    }
+  ],
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "block": "dreamt_dinner:reve_cake",
+          "condition": "minecraft:block_state_property",
+          "properties": {
+            "pieces": "1"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "dreamt_dinner:reve_cake"
+        }
+      ],
+      "functions": [
+        {
+          "add": false,
+          "count": 1.0,
+          "function": "minecraft:set_count"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "block": "dreamt_dinner:reve_cake",
+          "condition": "minecraft:block_state_property",
+          "properties": {
+            "pieces": "2"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "dreamt_dinner:reve_cake"
+        }
+      ],
+      "functions": [
+        {
+          "add": false,
+          "count": 2.0,
+          "function": "minecraft:set_count"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "block": "dreamt_dinner:reve_cake",
+          "condition": "minecraft:block_state_property",
+          "properties": {
+            "pieces": "3"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "dreamt_dinner:reve_cake"
+        }
+      ],
+      "functions": [
+        {
+          "add": false,
+          "count": 3.0,
+          "function": "minecraft:set_count"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "block": "dreamt_dinner:reve_cake",
+          "condition": "minecraft:block_state_property",
+          "properties": {
+            "pieces": "4"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "dreamt_dinner:reve_cake"
+        }
+      ],
+      "functions": [
+        {
+          "add": false,
+          "count": 4.0,
+          "function": "minecraft:set_count"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

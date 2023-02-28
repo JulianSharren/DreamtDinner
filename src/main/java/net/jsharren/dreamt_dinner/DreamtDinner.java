@@ -4,10 +4,10 @@ import org.slf4j.Logger;
 
 import net.fabricmc.api.ModInitializer;
 import net.jsharren.dreamt_dinner.resources.DtDResource;
-import net.jsharren.dreamt_dinner.utils.NameUitl;
+import net.jsharren.dreamt_dinner.utils.NameUtil;
 
 public class DreamtDinner implements ModInitializer {
-    public static final Logger LOGGER = NameUitl.getRootLogger();
+    public static final Logger LOGGER = NameUtil.getRootLogger();
     public static final DtDResource RESOURCE = DtDResource.createResource();
 
     @Override

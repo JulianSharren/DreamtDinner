@@ -7,6 +7,7 @@ import java.util.function.BiConsumer;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.jsharren.dreamt_dinner.blocks.DreamPotBlock;
+import net.jsharren.dreamt_dinner.blocks.ReveCakeBlock;
 import net.jsharren.dreamt_dinner.resources.item.DtDBlockItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
@@ -20,6 +21,7 @@ import net.minecraft.util.Identifier;
 
 public class DtDBlockPool {
     public static final DtDPlacedBlock DREAM_POT = new DtDPlacedBlock("dream_pot", DreamPotBlock.create());
+    public static final DtDPlacedBlock REVE_CAKE = new ReveCakeBlock.ResourceBlock();
 
     private Map<String, DtDBlock> pool;
     private Map<String, DtDBlockItem> itemPool;
@@ -78,6 +80,7 @@ public class DtDBlockPool {
     public static DtDBlockPool createBlockPool() {
         DtDBlockPool blockPool = new DtDBlockPool();
         blockPool.addPlaced(DREAM_POT, new FabricItemSettings().group(ItemGroup.MISC));
+        blockPool.addPlaced(REVE_CAKE, new FabricItemSettings().group(ItemGroup.FOOD));
 
         return blockPool;
     }

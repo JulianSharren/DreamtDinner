@@ -1,6 +1,6 @@
 package net.jsharren.dreamt_dinner.resources.item;
 
-import net.jsharren.dreamt_dinner.utils.NameUitl;
+import net.jsharren.dreamt_dinner.utils.NameUtil;
 import net.minecraft.data.client.ItemModelGenerator;
 import net.minecraft.data.client.Models;
 import net.minecraft.item.Item;
@@ -25,7 +25,7 @@ public class DtDItem implements ItemConvertible {
     }
 
     public void register() {
-        Registry.register(Registry.ITEM, NameUitl.toID(name), item);
+        Registry.register(Registry.ITEM, NameUtil.toID(name), item);
     }
 
     public void datagen(ItemModelGenerator gen) {

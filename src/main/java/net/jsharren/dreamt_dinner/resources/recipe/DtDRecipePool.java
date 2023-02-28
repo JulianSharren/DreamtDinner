@@ -24,6 +24,22 @@ public class DtDRecipePool {
         DtDCookingRecipe.create(DtDItemPool.COOKED_TUNA_FILLET)
         .inputCriterion("has_tuna_fillet", DtDItemLike.of(DtDItemPool.TUNA_FILLET))
     );
+    private static final DtDShapedRecipe DREAM_CHOWDER = (
+        DtDShapedRecipe.create(DtDItemPool.DREAM_CHOWDER)
+        .input('B', DtDItemLike.of(Items.BOWL)).putSlots('B', "5")
+        .input('S', DtDItemLike.of(Items.RED_MUSHROOM, Items.BROWN_MUSHROOM)).putSlots('S', "1")
+        .input('T', DtDItemLike.of(DtDItemPool.COOKED_TUNA_FILLET)).putSlots('T', "2")
+        .input('A', DtDItemLike.of(DtDItemPool.AURA_BREAD)).putSlots('A', "3")
+        .criterion("has_cooked_tuna_fillet", DtDItemLike.of(DtDItemPool.COOKED_TUNA_FILLET))
+    );
+    private static final DtDShapedRecipe REVE_CAKE = (
+        DtDShapedRecipe.create(DtDBlockPool.REVE_CAKE)
+        .input('B', DtDItemLike.of(DtDItemPool.REVE_BERRIES)).putSlots('B', "1")
+        .input('S', DtDItemLike.of(Items.SUGAR)).putSlots('S', "2")
+        .input('A', DtDItemLike.of(DtDItemPool.AURA_WHEAT)).putSlots('A', "4")
+        .input('E', DtDItemLike.of(Items.EGG)).putSlots('E', "5")
+        .criterion("has_reve_berries", DtDItemLike.of(DtDItemPool.REVE_BERRIES))
+    );
 
     private final List<DtDRecipe> recipes = new ArrayList<DtDRecipe>();;
 
@@ -45,6 +61,8 @@ public class DtDRecipePool {
         pool.add(COOKED_TUNA_FILLET);
         pool.add(COOKED_TUNA_FILLET.toSmoking());
         pool.add(COOKED_TUNA_FILLET.toCampBaking());
+        pool.add(DREAM_CHOWDER);
+        pool.add(REVE_CAKE);
 
         return pool;
     }

@@ -1,6 +1,6 @@
 package net.jsharren.dreamt_dinner.resources.item;
 
-import net.jsharren.dreamt_dinner.utils.NameUitl;
+import net.jsharren.dreamt_dinner.utils.NameUtil;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.item.Item;
 
@@ -16,7 +16,7 @@ public class DtDBlockItem extends DtDItem {
         if( hasTexture )  {
             gen.registerItemModel(item);
         } else {
-            gen.registerParentedItemModel(item, NameUitl.toID("block", name));
+            gen.registerParentedItemModel(item, NameUtil.toID("block", name));
         }
     }
 }

@@ -10,7 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nullable;
 
 import net.jsharren.dreamt_dinner.resources.recipe.ingredient.IngredientLike;
-import net.jsharren.dreamt_dinner.utils.NameUitl;
+import net.jsharren.dreamt_dinner.utils.NameUtil;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.item.ItemConvertible;
 
@@ -88,7 +88,7 @@ public class DtDShapedRecipe extends DtDRecipe {
             .map(i -> StringUtils.stripEnd(StringUtils.substring(string, i * 16, i * 16 + 16), String.valueOf(EMPTY_CHAR)))
             .toList()
         );
-        NameUitl.getRootLogger().info(patterns.toString());
+        NameUtil.getRootLogger().info(patterns.toString());
         int hMax = Collections.max(patterns.stream().map(String::length).toList());
         return patterns.stream().map(s -> StringUtils.rightPad(s, hMax, EMPTY_CHAR));
     }

@@ -29,6 +29,8 @@ import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
@@ -130,7 +132,7 @@ public class DreamPotBlockEntity extends BaseInvariantBlockEntity {
                 } else if ( self.isActive && self.scheduleDuration == COMPLETE_REACTION ) {
                     LOGGER.debug("Complete Reaction");
                     dreamable.getDreamLoot().generateLoot(lootContext(world)).forEach(stack -> self.spawnItems(stack, world));
-                    // world.playSound(null, pos, SoundEvents.BLOCK_DISPENSER_DISPENSE, SoundCategory.BLOCKS, 1.0f, 0.5f);
+                    world.playSound(null, pos, SoundEvents.BLOCK_DISPENSER_DISPENSE, SoundCategory.BLOCKS, 1.0f, 0.5f);
                 } else {
                     tryUpdatePos(self, dreamable.getEntity().getPos());
                     shouldDeactivate = false;
