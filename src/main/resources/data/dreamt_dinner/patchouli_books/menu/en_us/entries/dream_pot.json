@@ -1,0 +1,20 @@
+{
+    "name": "Dream Pot",
+    "category": "dreamt_dinner:single",
+    "icon": "dreamt_dinner:dream_pot",
+    "pages": [
+        {
+            "type": "patchouli:text",
+            "text": "You come to activate this tablet for, we believe, supreme food a mere crafter can only dream of. Right? Then, get some from $(o)a dream$().$(p)Yes, the best food exists in dreams! While asleep, living thing tends to see what they yearn for― purified, deformed and idealized in the sea of abstraction."
+        },
+        {
+            "type": "patchouli:text",
+            "text": "Sounds pretty unrealistic, isn't it? Well, correct. After all, dreamt things are just dreams, not real. There's no way you can eat such things in reality.$(p)Except there is. A mystical instrument, $(o)dream pot$(), will do the job for you."
+        },
+        {
+            "type": "patchouli:crafting",
+            "recipe": "dreamt_dinner:dream_pot",
+            "text": "Simmering in the dead of night"
+        }
+    ]
+}
