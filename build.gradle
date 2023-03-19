@@ -1,6 +1,7 @@
 plugins {
 	id 'fabric-loom' version '1.0-SNAPSHOT'
 	id 'maven-publish'
+	id 'com.ascert.open.json2yaml' version '1.1.1'
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
@@ -16,18 +17,6 @@ repositories {
 	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
 	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
 	// for more information about repositories.
-	// maven {
-	// 	name = 'Jitpack'
-	// 	url = uri('https://jitpack.io')
-	// }
-	// maven {
-    //     name = 'Ladysnake Mods'
-    //     url = 'https://ladysnake.jfrog.io/artifactory/mods'
-    //     content {
-    //         includeGroup 'io.github.ladysnake'
-    //         includeGroupByRegex 'io\\.github\\.onyxstudios.*'
-    //     }
-    // }
 }
 
 dependencies {
@@ -38,9 +27,6 @@ dependencies {
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-	
-	// include Renderer
-	// include modImplementation("com.github.0x3C50:Renderer:d2cc995ff4")
 }
 
 processResources {
@@ -92,6 +78,15 @@ sourceSets {
             ]
         }
     }
+}
+
+YamlToJson {
+    outDir = file("src/main/resources/data/dreamt_dinner/patchouli_books")
+    // file tree - converted files will use same sub-directory structure as originals
+    sourceFiles = fileTree(dir: "src/main/patchouli-yaml", include: "**/*.yaml")
+    // Extension mapping (values shown are actually the defaults). 
+    yamlExt = ".yaml"
+    jsonExt = ".json"
 }
 
 // configure the maven publication

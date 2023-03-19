@@ -1,0 +1,6 @@
+name: patchouli_books.dreamt_dinner.menu_title
+landing_text: patchouli_books.dreamt_dinner.menu_landing_text
+book_texture: patchouli:textures/gui/book_gray.png
+pamphlet: true
+show_progress: false
+version: "1"
