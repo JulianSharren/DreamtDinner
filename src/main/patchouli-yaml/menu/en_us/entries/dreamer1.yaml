@@ -1,0 +1,20 @@
+name: The first dreamer
+category: dreamt_dinner:single
+icon: dreamt_dinner:dream_pot
+sortnum: 11
+pages:
+  -
+    type: patchouli:text
+    text: >-
+      The first dreamer is the one who looks similar to you, crafter.
+      They sleep at night in bed, just like you do, and wake up in the morning to be engaged in their insignificant job.
+      $(br)Extraction from the first dreamer takes almost one night, but you need $(o)not$() stay awake for that.
+      Falling asleep along with them, you'll feel as if the dream pot has completed its job in a moment.
+  -
+    type: patchouli:spotlight
+    item: dreamt_dinner:aura_wheat
+    link_recipe: true
+    text: >-
+      Can be exploited from the first dreamer. A crafter wouldn't need help from us to make this wheat edible.
+      $(p)The dreamer in specific jobs may yield other ingredients in addition to the wheat.
+      

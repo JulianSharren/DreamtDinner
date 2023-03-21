@@ -1,6 +1,7 @@
 name: Dream Pot
 category: dreamt_dinner:single
 icon: dreamt_dinner:dream_pot
+sortnum: 1
 pages:
   -
     type: patchouli:text

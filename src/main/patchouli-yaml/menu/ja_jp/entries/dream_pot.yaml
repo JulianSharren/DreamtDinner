@@ -1,6 +1,7 @@
 name: 夢鍋
 category: dreamt_dinner:single
 icon: dreamt_dinner:dream_pot
+sortnum: 1
 pages:
   -
     type: patchouli:text
@@ -21,7 +22,7 @@ pages:
     text: >-
       問題は, 恐れ知らずのクラフターよ, $(o)君自身$()の夢ではいけないのだ.
       この方形の世界で採掘と工作を行うものの夢は非常に複雑で、夢鍋ではとても目標をとらえきれない程度には.
-      $(p)残された唯一の選択肢は, 他の眠るものを探して周りに夢鍋を設置し, そのを取り上げることだ―それが許可していようとしていまいと.
+      $(p)残された唯一の選択肢は, 他の眠るものを探して周りに夢鍋を設置し, その夢を取り上げることだ―それが許可していようとしていまいと.
   -
     type: patchouli:crafting
     recipe: dreamt_dinner:dream_pot
