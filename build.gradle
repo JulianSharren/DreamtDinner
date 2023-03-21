@@ -80,7 +80,7 @@ sourceSets {
     }
 }
 
-YamlToJson {
+task bookYaml2Json(type: dev.castocolina.gradle.plugin.YamlToJson) {
     outDir = file("src/main/resources/data/dreamt_dinner/patchouli_books")
     // file tree - converted files will use same sub-directory structure as originals
     sourceFiles = fileTree(dir: "src/main/patchouli-yaml", include: "**/*.yaml")
@@ -88,6 +88,11 @@ YamlToJson {
     yamlExt = ".yaml"
     jsonExt = ".json"
 }
+
+configure(bookYaml2Json) {
+	group = "build"
+	description = "convert book yaml files to json"
+} 
 
 // configure the maven publication
 publishing {
