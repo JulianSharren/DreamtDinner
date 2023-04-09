@@ -1,0 +1,18 @@
+name: The third dreamer
+category: dreamt_dinner:single
+icon: dreamt_dinner:reve_berries
+sortnum: 13
+pages:
+  -
+    type: patchouli:text
+    text: >-
+      The third dreamer is found out in the wild― mainly in grown or snowy place.
+      You don't have to keep them near, but if you want to, grow them from babies.
+      $(p)When it is daytime and they are safe, they go find where they can sleep.
+      They are often seen sleeping in tree canopies, but any shade is fine for them.
+  -
+    type: patchouli:spotlight
+    item: dreamt_dinner:reve_berries
+    link_recipe: true
+    text: >-
+      Can be extracted from the third dreamer. Blue berry eyes!

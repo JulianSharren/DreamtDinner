@@ -1,0 +1,18 @@
+name: 第三の夢見者
+category: dreamt_dinner:single
+icon: dreamt_dinner:reve_berries
+sortnum: 13
+pages:
+  -
+    type: patchouli:text
+    text: >-
+      第三の夢見者は,野生で見つかる―主に木か雪の多い場所だ.
+      彼らを近くに置いておく必要はないが, それを望むならば子供から育てるとよい.
+      $(p)日中で安全な場合は, 彼らは眠るのに適した場所を探す.
+      しばしば樹冠の下で眠るのが目撃されるが, 日陰ならばどこでもよい. 
+  -
+    type: patchouli:spotlight
+    item: dreamt_dinner:reve_berries
+    link_recipe: true
+    text: >-
+      第三の夢見者から抽出できる. ブルベリアイ!
