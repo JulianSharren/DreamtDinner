@@ -1,0 +1,22 @@
+name: Dream cooking!
+category: dreamt_dinner:single
+icon: dreamt_dinner:aura_wheat
+sortnum: 51
+pages:
+  -
+    type: patchouli:crafting
+    recipe: dreamt_dinner:dream_chowder
+    text: >-
+      True that individual dream foods are of fine quality, combining them is even so!
+      As we anticipate that you are used to craft-cooking, we shall share some of the dreamt crafting recipes.
+      $(p)Getting yourself a bowl of Dream Chowder is a bit elaborated, but it rewards you with not only hefty sum of neutrition,
+      it will give you Absorption effect― much shorter but stronger than a Golden Apple.
+
+  -
+    type: patchouli:crafting
+    recipe: dreamt_dinner:reve_cake
+    text: >-
+      If you are a big fan of confection, Gâteau Rêve is more than worth trying!
+      $(p)Similarly to the ordinary cake, it can be place on a floor and be munched by right-clicking on it.
+      You can place up to four pieces on one block (like candles and sea pickles), mystically reflecting different colors.
+      Rest assured that the cake on the floor can safely be mined back, unlike the non-dreamy version!
