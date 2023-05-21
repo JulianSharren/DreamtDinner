@@ -12,5 +12,7 @@
     "item.dreamt_dinner.reve_berries": "Rêve Berries",
     "item.dreamt_dinner.tuna_fillet": "Tuna Fillet",
     "block.dreamt_dinner.dream_pot": "Dream Pot",
-    "block.dreamt_dinner.reve_cake": "Gâteau Rêve"
+    "block.dreamt_dinner.reve_cake": "Gâteau Rêve",
+    "patchouli_books.dreamt_dinner.menu_title": "Dreamt Menu",
+    "patchouli_books.dreamt_dinner.menu_landing_text": "A culinary guide you $(o)ever$() dreamt of!"
 }

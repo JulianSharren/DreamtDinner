@@ -1,0 +1,31 @@
+name: Dream Pot
+category: dreamt_dinner:single
+icon: dreamt_dinner:dream_pot
+sortnum: 1
+pages:
+  -
+    type: patchouli:text
+    text: >-
+      You come to activate this tablet for, we believe, supreme food a mere crafter can only dream of. Right?
+      Then, get some from $(o)a dream$().
+      $(p)Yes, the best food exists in dreams!
+      While asleep, living thing tends to see what they yearn for― purified, deformed and idealized in the sea of abstraction.
+  -
+    type: patchouli:text
+    text: >-
+      Sounds pretty unrealistic, isn't it? Well, correct.
+      After all, dreamt things are just dreams, not real. There's no way you can eat such things in reality.
+      $(p)Except there is. A mystical instrument, $(o)dream pot$(), will do the job for you.
+      This pot connects to nearby sleeping thing,
+      peeks its dream and seeks for a meal that it'd crave for.
+  -
+    type: patchouli:text
+    text: >-
+      The caveat is, daring crafter, the dream of $(o)your own$() is not viable.
+      Those who mines and crafts out of this cubic world dream so complicated a dream, that the dream pot cannot seek out its object.
+      $(p)The only option is find something else that is sleeping,
+      and place the dream pot arount it to take up its dream― with or without its permission.
+  -
+    type: patchouli:crafting
+    recipe: dreamt_dinner:dream_pot
+    text: Simmering in the dead of night

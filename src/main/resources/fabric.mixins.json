@@ -4,6 +4,7 @@
   "package": "net.jsharren.dreamt_dinner.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "compat.RecipeManagerMixin",
     "DreamableCatMixin",
     "DreamableFoxMixin",
     "DreamableVillagerMixin"
