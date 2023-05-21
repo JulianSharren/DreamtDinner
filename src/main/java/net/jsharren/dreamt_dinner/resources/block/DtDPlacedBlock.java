@@ -16,7 +16,7 @@ public class DtDPlacedBlock extends DtDBlock {
     }
 
     public DtDBlockItem createBlockItem(Item.Settings itemSettings, Boolean hasItemTexture) {
-        return new DtDBlockItem(name,  new BlockItem(block, itemSettings), hasItemTexture);
+        return new DtDBlockItem(name, new BlockItem(block, itemSettings), hasItemTexture);
     }
 
     public DtDPlacedBlock removeDrop() {
@@ -24,6 +24,7 @@ public class DtDPlacedBlock extends DtDBlock {
         return this;
     }
 
+    @Override
     public LootTable.Builder getLootTable() {
         if( hasDrop ) {
             return BlockLootTableGenerator.drops(block);
