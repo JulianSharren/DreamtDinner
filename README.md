@@ -1,9 +1,14 @@
-# Fabric Example Mod
+# DreamtDinner
 
-## Setup
+## Description
 
-For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
+A Fabric mod that brings you a small set of food, of moderately higher tier, that only exists in mobs' dreams.
+
+This means, you need to interact with mobs (not players) that can *sleep*.
+
+In-game guidance is available if [Patchouli](https://github.com/VazkiiMods/Patchouli/) is installed.
 
 ## License
 
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+- Redistribution of this mod is subject to [MPL2.0](LICENSE).
+
