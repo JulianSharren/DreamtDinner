@@ -13,8 +13,8 @@
     "sources": "https://github.com/JulianSharren/dreamt-dinner"
   },
 
-  "license": "Undetermined",
-  "icon": "assets/dreamt_dinner/icon_v00.png",
+  "license": "MIT License",
+  "icon": "assets/dreamt_dinner/dtd_icon_v01.png",
 
   "environment": "*",
   "entrypoints": {
